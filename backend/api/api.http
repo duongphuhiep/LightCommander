@@ -1,0 +1,19 @@
+@BaseUrl = http://localhost:5140
+@ChatSession = 9a51f92f-b54f-4ee5-892d-05dfccc9de54
+
+### Create a chat session
+POST {{BaseUrl}}/chat/session
+
+
+### Create some lights
+POST {{BaseUrl}}/chat/{{ChatSession}}/message
+Accept: text/plain
+
+create a "table lamp" light and a "porch" light
+
+
+### Set porch temperature
+POST {{BaseUrl}}/chat/{{ChatSession}}/message
+Accept: text/plain
+
+Set porch to studio light temperature and turn it on
