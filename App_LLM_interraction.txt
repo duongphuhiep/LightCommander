@@ -1,0 +1,510 @@
+>> create a "table lamp" light and a "porch" light
+
+
+ Sent HTTP Request POST https://api.openai.com/v1/chat/completions {"messages":[{"role":"user","content":"create a \"table lamp\" light and a \"porch\" light"}],"model":"gpt-4o","tools":[{"type":"function","function":{"description":"Creates a new light with the given name","name":"Lights-create_light","parameters":{"type":"object","required":["lightName"],"properties":{"lightName":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Delete a light, return true if success","name":"Lights-delete_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Gets the list of all lights and their current state","name":"Lights-get_lights","parameters":{"type":"object","required":[],"properties":{}},"strict":false}},{"type":"function","function":{"description":"Gets a light information from the specified id","name":"Lights-get_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Changes the state of the light","name":"Lights-change_state","parameters":{"type":"object","required":["id","isOn"],"properties":{"id":{"type":"integer"},"isOn":{"type":"boolean"}}},"strict":false}},{"type":"function","function":{"description":"Changes the temperature of the light, the value of the temperature is between 1000 and 27000.\nTemperature\tSource\n1,000 K\tMost commercial electric heating elements\n1,700 K\tMatch flame, low-pressure sodium lamps (LPS/SOX)\n1,850 K\tCandle flame, sunset/sunrise\n2,400 K\tStandard incandescent lamps\n2,550 K\tSoft white incandescent lamps\n2,700 K\t\"Soft white\" compact fluorescent and LED lamps\n3,000 K\tWarm white compact fluorescent and LED lamps\n3,200 K\tStudio lamps, photofloods, etc.\n3,350 K\tStudio \"CP\" light\n5,000 K\tHorizon daylight, tubular fluorescent lamps or cool white/daylight compact fluorescent lamps (CFL)\n5,500–6,000 K\tVertical daylight, electronic flash\n6,200 K\tXenon short-arc lamp[10]\n6,500 K\tDaylight, overcast, daylight LED lamps\n6,500–9,500 K\tLCD or CRT screens\n15,000–27,000 K\tClear blue poleward sky","name":"Lights-change_temperature","parameters":{"type":"object","required":["id","temperature"],"properties":{"id":{"type":"integer"},"temperature":{"type":"integer"}}},"strict":false}}],"tool_choice":"auto"}. Got response 200 {
+        "id": "chatcmpl-D7SJfQX9qMaYrYGATJRgKr9wQmKnh",
+        "object": "chat.completion",
+        "created": 1770669515,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_AzLL9Ra8hvWB3vTJTXx75VDn",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-create_light",
+                    "arguments": "{\"lightName\": \"table lamp\"}"
+                  }
+                },
+                {
+                  "id": "call_rXrAihAZXKGkq48P5hzGaDRs",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-create_light",
+                    "arguments": "{\"lightName\": \"porch\"}"
+                  }
+                }
+              ],
+              "refusal": null,
+              "annotations": []
+            },
+            "logprobs": null,
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 442,
+          "completion_tokens": 52,
+          "total_tokens": 494,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default",
+        "system_fingerprint": "fp_ad98c18a04"
+      }
+      . Elapsed 2023
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[101]
+      End processing HTTP request after 2030.0594ms - 200
+info: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Prompt tokens: 442. Completion tokens: 52. Total tokens: 494.
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function calls: Lights-create_light [Id: call_AzLL9Ra8hvWB3vTJTXx75VDn], Lights-create_light [Id: call_rXrAihAZXKGkq48P5hzGaDRs]
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-create_light invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-create_light succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-create_light completed. Duration: 0.0269922s
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-create_light invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-create_light succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-create_light completed. Duration: 0.0017754s
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function choice behavior configuration: Choice:auto, AutoInvoke:True, AllowConcurrentInvocation:False, AllowParallelCalls:(null) Functions:Lights-create_light, Lights-delete_light, Lights-get_lights, Lights-get_light, Lights-change_state, Lights-change_temperature
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[100]
+      Start processing HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[100]
+      Sending HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[101]
+      Received HTTP response headers after 2312.5074ms - 200
+info: ToolsPack.Logging.CompactHttpLoggingMiddleware[0]
+      Sent HTTP Request POST https://api.openai.com/v1/chat/completions {"messages":[{"role":"user","content":"create a \"table lamp\" light and a \"porch\" light"},{"role":"assistant","content":"","tool_calls":[{"id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"table lamp\"}"}},{"id":"call_rXrAihAZXKGkq48P5hzGaDRs","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"porch\"}"}}]},{"role":"tool","tool_call_id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","content":"{\"id\":7,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0}"},{"role":"tool","tool_call_id":"call_rXrAihAZXKGkq48P5hzGaDRs","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":0}"}],"model":"gpt-4o","tools":[{"type":"function","function":{"description":"Creates a new light with the given name","name":"Lights-create_light","parameters":{"type":"object","required":["lightName"],"properties":{"lightName":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Delete a light, return true if success","name":"Lights-delete_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Gets the list of all lights and their current state","name":"Lights-get_lights","parameters":{"type":"object","required":[],"properties":{}},"strict":false}},{"type":"function","function":{"description":"Gets a light information from the specified id","name":"Lights-get_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Changes the state of the light","name":"Lights-change_state","parameters":{"type":"object","required":["id","isOn"],"properties":{"id":{"type":"integer"},"isOn":{"type":"boolean"}}},"strict":false}},{"type":"function","function":{"description":"Changes the temperature of the light, the value of the temperature is between 1000 and 27000.\nTemperature\tSource\n1,000 K\tMost commercial electric heating elements\n1,700 K\tMatch flame, low-pressure sodium lamps (LPS/SOX)\n1,850 K\tCandle flame, sunset/sunrise\n2,400 K\tStandard incandescent lamps\n2,550 K\tSoft white incandescent lamps\n2,700 K\t\"Soft white\" compact fluorescent and LED lamps\n3,000 K\tWarm white compact fluorescent and LED lamps\n3,200 K\tStudio lamps, photofloods, etc.\n3,350 K\tStudio \"CP\" light\n5,000 K\tHorizon daylight, tubular fluorescent lamps or cool white/daylight compact fluorescent lamps (CFL)\n5,500–6,000 K\tVertical daylight, electronic flash\n6,200 K\tXenon short-arc lamp[10]\n6,500 K\tDaylight, overcast, daylight LED lamps\n6,500–9,500 K\tLCD or CRT screens\n15,000–27,000 K\tClear blue poleward sky","name":"Lights-change_temperature","parameters":{"type":"object","required":["id","temperature"],"properties":{"id":{"type":"integer"},"temperature":{"type":"integer"}}},"strict":false}}],"tool_choice":"auto"}. Got response 200 {
+        "id": "chatcmpl-D7SJh9G51P3vvi5AVxU60ElFHEqTe",
+        "object": "chat.completion",
+        "created": 1770669517,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The \"table lamp\" and \"porch\" lights have been successfully created. Both lights are currently turned off and their temperature settings are at the default level.",
+              "refusal": null,
+              "annotations": []
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 555,
+          "completion_tokens": 33,
+          "total_tokens": 588,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default",
+        "system_fingerprint": "fp_ad98c18a04"
+      }
+      . Elapsed 2312
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[101]
+      End processing HTTP request after 2313.0707ms - 200
+info: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Prompt tokens: 555. Completion tokens: 33. Total tokens: 588.
+
+
+*******************************************************
+
+>> Set porch to studio light temperature and turn it on
+
+
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function choice behavior configuration: Choice:auto, AutoInvoke:True, AllowConcurrentInvocation:False, AllowParallelCalls:(null) Functions:Lights-create_light, Lights-delete_light, Lights-get_lights, Lights-get_light, Lights-change_state, Lights-change_temperature
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[100]
+      Start processing HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[100]
+      Sending HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[101]
+      Received HTTP response headers after 1950.9075ms - 200
+info: ToolsPack.Logging.CompactHttpLoggingMiddleware[0]
+      Sent HTTP Request POST https://api.openai.com/v1/chat/completions {"messages":[{"role":"user","content":"create a \"table lamp\" light and a \"porch\" light"},{"role":"assistant","content":"","tool_calls":[{"id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"table lamp\"}"}},{"id":"call_rXrAihAZXKGkq48P5hzGaDRs","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"porch\"}"}}]},{"role":"tool","tool_call_id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","content":"{\"id\":7,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0}"},{"role":"tool","tool_call_id":"call_rXrAihAZXKGkq48P5hzGaDRs","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":0}"},{"role":"assistant","content":"The \"table lamp\" and \"porch\" lights have been successfully created. Both lights are currently turned off and their temperature settings are at the default level."},{"role":"user","content":"Set porch to studio light temperature and turn it on"}],"model":"gpt-4o","tools":[{"type":"function","function":{"description":"Creates a new light with the given name","name":"Lights-create_light","parameters":{"type":"object","required":["lightName"],"properties":{"lightName":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Delete a light, return true if success","name":"Lights-delete_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Gets the list of all lights and their current state","name":"Lights-get_lights","parameters":{"type":"object","required":[],"properties":{}},"strict":false}},{"type":"function","function":{"description":"Gets a light information from the specified id","name":"Lights-get_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Changes the state of the light","name":"Lights-change_state","parameters":{"type":"object","required":["id","isOn"],"properties":{"id":{"type":"integer"},"isOn":{"type":"boolean"}}},"strict":false}},{"type":"function","function":{"description":"Changes the temperature of the light, the value of the temperature is between 1000 and 27000.\nTemperature\tSource\n1,000 K\tMost commercial electric heating elements\n1,700 K\tMatch flame, low-pressure sodium lamps (LPS/SOX)\n1,850 K\tCandle flame, sunset/sunrise\n2,400 K\tStandard incandescent lamps\n2,550 K\tSoft white incandescent lamps\n2,700 K\t\"Soft white\" compact fluorescent and LED lamps\n3,000 K\tWarm white compact fluorescent and LED lamps\n3,200 K\tStudio lamps, photofloods, etc.\n3,350 K\tStudio \"CP\" light\n5,000 K\tHorizon daylight, tubular fluorescent lamps or cool white/daylight compact fluorescent lamps (CFL)\n5,500–6,000 K\tVertical daylight, electronic flash\n6,200 K\tXenon short-arc lamp[10]\n6,500 K\tDaylight, overcast, daylight LED lamps\n6,500–9,500 K\tLCD or CRT screens\n15,000–27,000 K\tClear blue poleward sky","name":"Lights-change_temperature","parameters":{"type":"object","required":["id","temperature"],"properties":{"id":{"type":"integer"},"temperature":{"type":"integer"}}},"strict":false}}],"tool_choice":"auto"}. Got response 200 {
+        "id": "chatcmpl-D7SQ09iDUkJz5luNi3iXyquRafTEY",
+        "object": "chat.completion",
+        "created": 1770669908,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_hL29HpNzpeMgMADdi8zYBBaj",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-change_temperature",
+                    "arguments": "{\"id\": 8, \"temperature\": 3350}"
+                  }
+                },
+                {
+                  "id": "call_e1AsEWk31t6ctQWjr342DLBx",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-change_state",
+                    "arguments": "{\"id\": 8, \"isOn\": true}"
+                  }
+                }
+              ],
+              "refusal": null,
+              "annotations": []
+            },
+            "logprobs": null,
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 605,
+          "completion_tokens": 58,
+          "total_tokens": 663,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default",
+        "system_fingerprint": "fp_ad98c18a04"
+      }
+      . Elapsed 1950
+info: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Prompt tokens: 605. Completion tokens: 58. Total tokens: 663.
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[101]
+      End processing HTTP request after 1951.0627ms - 200
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function calls: Lights-change_temperature [Id: call_hL29HpNzpeMgMADdi8zYBBaj], Lights-change_state [Id: call_e1AsEWk31t6ctQWjr342DLBx]
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-change_temperature invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-change_temperature succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-change_temperature completed. Duration: 0.0140386s
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-change_state invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-change_state succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-change_state completed. Duration: 0.0028445s
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function choice behavior configuration: Choice:auto, AutoInvoke:True, AllowConcurrentInvocation:False, AllowParallelCalls:(null) Functions:Lights-create_light, Lights-delete_light, Lights-get_lights, Lights-get_light, Lights-change_state, Lights-change_temperature
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[100]
+      Start processing HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[100]
+      Sending HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[101]
+      Received HTTP response headers after 903.0231ms - 200
+info: ToolsPack.Logging.CompactHttpLoggingMiddleware[0]
+      Sent HTTP Request POST https://api.openai.com/v1/chat/completions {"messages":[{"role":"user","content":"create a \"table lamp\" light and a \"porch\" light"},{"role":"assistant","content":"","tool_calls":[{"id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"table lamp\"}"}},{"id":"call_rXrAihAZXKGkq48P5hzGaDRs","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"porch\"}"}}]},{"role":"tool","tool_call_id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","content":"{\"id\":7,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0}"},{"role":"tool","tool_call_id":"call_rXrAihAZXKGkq48P5hzGaDRs","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":0}"},{"role":"assistant","content":"The \"table lamp\" and \"porch\" lights have been successfully created. Both lights are currently turned off and their temperature settings are at the default level."},{"role":"user","content":"Set porch to studio light temperature and turn it on"},{"role":"assistant","content":"","tool_calls":[{"id":"call_hL29HpNzpeMgMADdi8zYBBaj","type":"function","function":{"name":"Lights-change_temperature","arguments":"{\"id\": 8, \"temperature\": 3350}"}},{"id":"call_e1AsEWk31t6ctQWjr342DLBx","type":"function","function":{"name":"Lights-change_state","arguments":"{\"id\": 8, \"isOn\": true}"}}]},{"role":"tool","tool_call_id":"call_hL29HpNzpeMgMADdi8zYBBaj","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":3350}"},{"role":"tool","tool_call_id":"call_e1AsEWk31t6ctQWjr342DLBx","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":true,\"temperature\":3350}"}],"model":"gpt-4o","tools":[{"type":"function","function":{"description":"Creates a new light with the given name","name":"Lights-create_light","parameters":{"type":"object","required":["lightName"],"properties":{"lightName":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Delete a light, return true if success","name":"Lights-delete_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Gets the list of all lights and their current state","name":"Lights-get_lights","parameters":{"type":"object","required":[],"properties":{}},"strict":false}},{"type":"function","function":{"description":"Gets a light information from the specified id","name":"Lights-get_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Changes the state of the light","name":"Lights-change_state","parameters":{"type":"object","required":["id","isOn"],"properties":{"id":{"type":"integer"},"isOn":{"type":"boolean"}}},"strict":false}},{"type":"function","function":{"description":"Changes the temperature of the light, the value of the temperature is between 1000 and 27000.\nTemperature\tSource\n1,000 K\tMost commercial electric heating elements\n1,700 K\tMatch flame, low-pressure sodium lamps (LPS/SOX)\n1,850 K\tCandle flame, sunset/sunrise\n2,400 K\tStandard incandescent lamps\n2,550 K\tSoft white incandescent lamps\n2,700 K\t\"Soft white\" compact fluorescent and LED lamps\n3,000 K\tWarm white compact fluorescent and LED lamps\n3,200 K\tStudio lamps, photofloods, etc.\n3,350 K\tStudio \"CP\" light\n5,000 K\tHorizon daylight, tubular fluorescent lamps or cool white/daylight compact fluorescent lamps (CFL)\n5,500–6,000 K\tVertical daylight, electronic flash\n6,200 K\tXenon short-arc lamp[10]\n6,500 K\tDaylight, overcast, daylight LED lamps\n6,500–9,500 K\tLCD or CRT screens\n15,000–27,000 K\tClear blue poleward sky","name":"Lights-change_temperature","parameters":{"type":"object","required":["id","temperature"],"properties":{"id":{"type":"integer"},"temperature":{"type":"integer"}}},"strict":false}}],"tool_choice":"auto"}. Got response 200 {
+        "id": "chatcmpl-D7SQ1Q5qxC6KJUBoFkD0v65YhpbLK",
+        "object": "chat.completion",
+        "created": 1770669909,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The \"porch\" light has been set to a studio light temperature of 3350K and turned on successfully.",
+              "refusal": null,
+              "annotations": []
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 726,
+          "completion_tokens": 25,
+          "total_tokens": 751,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default",
+        "system_fingerprint": "fp_ad98c18a04"
+      }
+      . Elapsed 903
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[101]
+      End processing HTTP request after 903.3447ms - 200
+info: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Prompt tokens: 726. Completion tokens: 25. Total tokens: 751.
+
+*******************************************************
+
+>> Delete all lights
+
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function choice behavior configuration: Choice:auto, AutoInvoke:True, AllowConcurrentInvocation:False, AllowParallelCalls:(null) Functions:Lights-create_light, Lights-delete_light, Lights-get_lights, Lights-get_light, Lights-change_state, Lights-change_temperature
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[100]
+      Start processing HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[100]
+      Sending HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[101]
+      Received HTTP response headers after 747.2286ms - 200
+info: ToolsPack.Logging.CompactHttpLoggingMiddleware[0]
+      Sent HTTP Request POST https://api.openai.com/v1/chat/completions {"messages":[{"role":"user","content":"create a \"table lamp\" light and a \"porch\" light"},{"role":"assistant","content":"","tool_calls":[{"id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"table lamp\"}"}},{"id":"call_rXrAihAZXKGkq48P5hzGaDRs","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"porch\"}"}}]},{"role":"tool","tool_call_id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","content":"{\"id\":7,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0}"},{"role":"tool","tool_call_id":"call_rXrAihAZXKGkq48P5hzGaDRs","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":0}"},{"role":"assistant","content":"The \"table lamp\" and \"porch\" lights have been successfully created. Both lights are currently turned off and their temperature settings are at the default level."},{"role":"user","content":"Set porch to studio light temperature and turn it on"},{"role":"assistant","content":"","tool_calls":[{"id":"call_hL29HpNzpeMgMADdi8zYBBaj","type":"function","function":{"name":"Lights-change_temperature","arguments":"{\"id\": 8, \"temperature\": 3350}"}},{"id":"call_e1AsEWk31t6ctQWjr342DLBx","type":"function","function":{"name":"Lights-change_state","arguments":"{\"id\": 8, \"isOn\": true}"}}]},{"role":"tool","tool_call_id":"call_hL29HpNzpeMgMADdi8zYBBaj","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":3350}"},{"role":"tool","tool_call_id":"call_e1AsEWk31t6ctQWjr342DLBx","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":true,\"temperature\":3350}"},{"role":"assistant","content":"The \"porch\" light has been set to a studio light temperature of 3350K and turned on successfully."},{"role":"user","content":"Delete all lights"}],"model":"gpt-4o","tools":[{"type":"function","function":{"description":"Creates a new light with the given name","name":"Lights-create_light","parameters":{"type":"object","required":["lightName"],"properties":{"lightName":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Delete a light, return true if success","name":"Lights-delete_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Gets the list of all lights and their current state","name":"Lights-get_lights","parameters":{"type":"object","required":[],"properties":{}},"strict":false}},{"type":"function","function":{"description":"Gets a light information from the specified id","name":"Lights-get_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Changes the state of the light","name":"Lights-change_state","parameters":{"type":"object","required":["id","isOn"],"properties":{"id":{"type":"integer"},"isOn":{"type":"boolean"}}},"strict":false}},{"type":"function","function":{"description":"Changes the temperature of the light, the value of the temperature is between 1000 and 27000.\nTemperature\tSource\n1,000 K\tMost commercial electric heating elements\n1,700 K\tMatch flame, low-pressure sodium lamps (LPS/SOX)\n1,850 K\tCandle flame, sunset/sunrise\n2,400 K\tStandard incandescent lamps\n2,550 K\tSoft white incandescent lamps\n2,700 K\t\"Soft white\" compact fluorescent and LED lamps\n3,000 K\tWarm white compact fluorescent and LED lamps\n3,200 K\tStudio lamps, photofloods, etc.\n3,350 K\tStudio \"CP\" light\n5,000 K\tHorizon daylight, tubular fluorescent lamps or cool white/daylight compact fluorescent lamps (CFL)\n5,500–6,000 K\tVertical daylight, electronic flash\n6,200 K\tXenon short-arc lamp[10]\n6,500 K\tDaylight, overcast, daylight LED lamps\n6,500–9,500 K\tLCD or CRT screens\n15,000–27,000 K\tClear blue poleward sky","name":"Lights-change_temperature","parameters":{"type":"object","required":["id","temperature"],"properties":{"id":{"type":"integer"},"temperature":{"type":"integer"}}},"strict":false}}],"tool_choice":"auto"}. Got response 200 {
+        "id": "chatcmpl-D7SWOs5xLP8UvaVV3FbtHbkx8WXwO",
+        "object": "chat.completion",
+        "created": 1770670304,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_PAWFHFnWsKcW3haNtiOyIp6o",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-get_lights",
+                    "arguments": "{}"
+                  }
+                }
+              ],
+              "refusal": null,
+              "annotations": []
+            },
+            "logprobs": null,
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 761,
+          "completion_tokens": 13,
+          "total_tokens": 774,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default",
+        "system_fingerprint": "fp_ad98c18a04"
+      }
+      . Elapsed 747
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[101]
+      End processing HTTP request after 752.1486ms - 200
+info: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Prompt tokens: 761. Completion tokens: 13. Total tokens: 774.
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function calls: Lights-get_lights [Id: call_PAWFHFnWsKcW3haNtiOyIp6o]
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-get_lights invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-get_lights succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-get_lights completed. Duration: 0.0110033s
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function choice behavior configuration: Choice:auto, AutoInvoke:True, AllowConcurrentInvocation:False, AllowParallelCalls:(null) Functions:Lights-create_light, Lights-delete_light, Lights-get_lights, Lights-get_light, Lights-change_state, Lights-change_temperature
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[100]
+      Start processing HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[100]
+      Sending HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[101]
+      Received HTTP response headers after 1075.957ms - 200
+info: ToolsPack.Logging.CompactHttpLoggingMiddleware[0]
+      Sent HTTP Request POST https://api.openai.com/v1/chat/completions {"messages":[{"role":"user","content":"create a \"table lamp\" light and a \"porch\" light"},{"role":"assistant","content":"","tool_calls":[{"id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"table lamp\"}"}},{"id":"call_rXrAihAZXKGkq48P5hzGaDRs","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"porch\"}"}}]},{"role":"tool","tool_call_id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","content":"{\"id\":7,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0}"},{"role":"tool","tool_call_id":"call_rXrAihAZXKGkq48P5hzGaDRs","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":0}"},{"role":"assistant","content":"The \"table lamp\" and \"porch\" lights have been successfully created. Both lights are currently turned off and their temperature settings are at the default level."},{"role":"user","content":"Set porch to studio light temperature and turn it on"},{"role":"assistant","content":"","tool_calls":[{"id":"call_hL29HpNzpeMgMADdi8zYBBaj","type":"function","function":{"name":"Lights-change_temperature","arguments":"{\"id\": 8, \"temperature\": 3350}"}},{"id":"call_e1AsEWk31t6ctQWjr342DLBx","type":"function","function":{"name":"Lights-change_state","arguments":"{\"id\": 8, \"isOn\": true}"}}]},{"role":"tool","tool_call_id":"call_hL29HpNzpeMgMADdi8zYBBaj","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":3350}"},{"role":"tool","tool_call_id":"call_e1AsEWk31t6ctQWjr342DLBx","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":true,\"temperature\":3350}"},{"role":"assistant","content":"The \"porch\" light has been set to a studio light temperature of 3350K and turned on successfully."},{"role":"user","content":"Delete all lights"},{"role":"assistant","content":"","tool_calls":[{"id":"call_PAWFHFnWsKcW3haNtiOyIp6o","type":"function","function":{"name":"Lights-get_lights","arguments":"{}"}}]},{"role":"tool","tool_call_id":"call_PAWFHFnWsKcW3haNtiOyIp6o","content":"[{\"id\":5,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0},{\"id\":6,\"name\":\"porch\",\"is_on\":false,\"temperature\":0},{\"id\":7,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0},{\"id\":8,\"name\":\"porch\",\"is_on\":true,\"temperature\":3350}]"}],"model":"gpt-4o","tools":[{"type":"function","function":{"description":"Creates a new light with the given name","name":"Lights-create_light","parameters":{"type":"object","required":["lightName"],"properties":{"lightName":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Delete a light, return true if success","name":"Lights-delete_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Gets the list of all lights and their current state","name":"Lights-get_lights","parameters":{"type":"object","required":[],"properties":{}},"strict":false}},{"type":"function","function":{"description":"Gets a light information from the specified id","name":"Lights-get_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Changes the state of the light","name":"Lights-change_state","parameters":{"type":"object","required":["id","isOn"],"properties":{"id":{"type":"integer"},"isOn":{"type":"boolean"}}},"strict":false}},{"type":"function","function":{"description":"Changes the temperature of the light, the value of the temperature is between 1000 and 27000.\nTemperature\tSource\n1,000 K\tMost commercial electric heating elements\n1,700 K\tMatch flame, low-pressure sodium lamps (LPS/SOX)\n1,850 K\tCandle flame, sunset/sunrise\n2,400 K\tStandard incandescent lamps\n2,550 K\tSoft white incandescent lamps\n2,700 K\t\"Soft white\" compact fluorescent and LED lamps\n3,000 K\tWarm white compact fluorescent and LED lamps\n3,200 K\tStudio lamps, photofloods, etc.\n3,350 K\tStudio \"CP\" light\n5,000 K\tHorizon daylight, tubular fluorescent lamps or cool white/daylight compact fluorescent lamps (CFL)\n5,500–6,000 K\tVertical daylight, electronic flash\n6,200 K\tXenon short-arc lamp[10]\n6,500 K\tDaylight, overcast, daylight LED lamps\n6,500–9,500 K\tLCD or CRT screens\n15,000–27,000 K\tClear blue poleward sky","name":"Lights-change_temperature","parameters":{"type":"object","required":["id","temperature"],"properties":{"id":{"type":"integer"},"temperature":{"type":"integer"}}},"strict":false}}],"tool_choice":"auto"}. Got response 200 {
+        "id": "chatcmpl-D7SWPjFgfE37gz1y1AwXaiUjRMk5k",
+        "object": "chat.completion",
+        "created": 1770670305,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_qd40raccz2YgwRuRVuN3lrQZ",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-delete_light",
+                    "arguments": "{\"lightId\": \"5\"}"
+                  }
+                },
+                {
+                  "id": "call_rJu7aHymllOZlyJFWbg42BsN",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-delete_light",
+                    "arguments": "{\"lightId\": \"6\"}"
+                  }
+                },
+                {
+                  "id": "call_62C18zW5ZlbR7d9mzftgMscs",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-delete_light",
+                    "arguments": "{\"lightId\": \"7\"}"
+                  }
+                },
+                {
+                  "id": "call_I27trU8G14w761UXCZUteTEx",
+                  "type": "function",
+                  "function": {
+                    "name": "Lights-delete_light",
+                    "arguments": "{\"lightId\": \"8\"}"
+                  }
+                }
+              ],
+              "refusal": null,
+              "annotations": []
+            },
+            "logprobs": null,
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 859,
+          "completion_tokens": 84,
+          "total_tokens": 943,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default",
+        "system_fingerprint": "fp_ad98c18a04"
+      }
+      . Elapsed 1075
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[101]
+      End processing HTTP request after 1082.3828ms - 200
+info: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Prompt tokens: 859. Completion tokens: 84. Total tokens: 943.
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function calls: Lights-delete_light [Id: call_qd40raccz2YgwRuRVuN3lrQZ], Lights-delete_light [Id: call_rJu7aHymllOZlyJFWbg42BsN], Lights-delete_light [Id: call_62C18zW5ZlbR7d9mzftgMscs], Lights-delete_light [Id: call_I27trU8G14w761UXCZUteTEx]
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light completed. Duration: 0.0038491s
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light completed. Duration: 0.0009195s
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light completed. Duration: 0.0004352s
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light invoking.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light succeeded.
+info: Microsoft.SemanticKernel.KernelFunction[0]
+      Function Lights-delete_light completed. Duration: 0.0003013s
+dbug: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Function choice behavior configuration: Choice:auto, AutoInvoke:True, AllowConcurrentInvocation:False, AllowParallelCalls:(null) Functions:Lights-create_light, Lights-delete_light, Lights-get_lights, Lights-get_light, Lights-change_state, Lights-change_temperature
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[100]
+      Start processing HTTP request POST https://api.openai.com/v1/chat/completions
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[100]
+      Sending HTTP request POST https://api.openai.com/v1/chat/completions
+dbug: Microsoft.Extensions.Http.DefaultHttpClientFactory[100]
+      Starting HttpMessageHandler cleanup cycle with 1 items
+dbug: Microsoft.Extensions.Http.DefaultHttpClientFactory[101]
+      Ending HttpMessageHandler cleanup cycle after 0.0008ms - processed: 0 items - remaining: 1 items
+info: System.Net.Http.HttpClient.OpenAPI.ClientHandler[101]
+      Received HTTP response headers after 1288.6681ms - 200
+info: ToolsPack.Logging.CompactHttpLoggingMiddleware[0]
+      Sent HTTP Request POST https://api.openai.com/v1/chat/completions {"messages":[{"role":"user","content":"create a \"table lamp\" light and a \"porch\" light"},{"role":"assistant","content":"","tool_calls":[{"id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"table lamp\"}"}},{"id":"call_rXrAihAZXKGkq48P5hzGaDRs","type":"function","function":{"name":"Lights-create_light","arguments":"{\"lightName\": \"porch\"}"}}]},{"role":"tool","tool_call_id":"call_AzLL9Ra8hvWB3vTJTXx75VDn","content":"{\"id\":7,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0}"},{"role":"tool","tool_call_id":"call_rXrAihAZXKGkq48P5hzGaDRs","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":0}"},{"role":"assistant","content":"The \"table lamp\" and \"porch\" lights have been successfully created. Both lights are currently turned off and their temperature settings are at the default level."},{"role":"user","content":"Set porch to studio light temperature and turn it on"},{"role":"assistant","content":"","tool_calls":[{"id":"call_hL29HpNzpeMgMADdi8zYBBaj","type":"function","function":{"name":"Lights-change_temperature","arguments":"{\"id\": 8, \"temperature\": 3350}"}},{"id":"call_e1AsEWk31t6ctQWjr342DLBx","type":"function","function":{"name":"Lights-change_state","arguments":"{\"id\": 8, \"isOn\": true}"}}]},{"role":"tool","tool_call_id":"call_hL29HpNzpeMgMADdi8zYBBaj","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":false,\"temperature\":3350}"},{"role":"tool","tool_call_id":"call_e1AsEWk31t6ctQWjr342DLBx","content":"{\"id\":8,\"name\":\"porch\",\"is_on\":true,\"temperature\":3350}"},{"role":"assistant","content":"The \"porch\" light has been set to a studio light temperature of 3350K and turned on successfully."},{"role":"user","content":"Delete all lights"},{"role":"assistant","content":"","tool_calls":[{"id":"call_PAWFHFnWsKcW3haNtiOyIp6o","type":"function","function":{"name":"Lights-get_lights","arguments":"{}"}}]},{"role":"tool","tool_call_id":"call_PAWFHFnWsKcW3haNtiOyIp6o","content":"[{\"id\":5,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0},{\"id\":6,\"name\":\"porch\",\"is_on\":false,\"temperature\":0},{\"id\":7,\"name\":\"table lamp\",\"is_on\":false,\"temperature\":0},{\"id\":8,\"name\":\"porch\",\"is_on\":true,\"temperature\":3350}]"},{"role":"assistant","content":"","tool_calls":[{"id":"call_qd40raccz2YgwRuRVuN3lrQZ","type":"function","function":{"name":"Lights-delete_light","arguments":"{\"lightId\": \"5\"}"}},{"id":"call_rJu7aHymllOZlyJFWbg42BsN","type":"function","function":{"name":"Lights-delete_light","arguments":"{\"lightId\": \"6\"}"}},{"id":"call_62C18zW5ZlbR7d9mzftgMscs","type":"function","function":{"name":"Lights-delete_light","arguments":"{\"lightId\": \"7\"}"}},{"id":"call_I27trU8G14w761UXCZUteTEx","type":"function","function":{"name":"Lights-delete_light","arguments":"{\"lightId\": \"8\"}"}}]},{"role":"tool","tool_call_id":"call_qd40raccz2YgwRuRVuN3lrQZ","content":"true"},{"role":"tool","tool_call_id":"call_rJu7aHymllOZlyJFWbg42BsN","content":"true"},{"role":"tool","tool_call_id":"call_62C18zW5ZlbR7d9mzftgMscs","content":"true"},{"role":"tool","tool_call_id":"call_I27trU8G14w761UXCZUteTEx","content":"true"}],"model":"gpt-4o","tools":[{"type":"function","function":{"description":"Creates a new light with the given name","name":"Lights-create_light","parameters":{"type":"object","required":["lightName"],"properties":{"lightName":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Delete a light, return true if success","name":"Lights-delete_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Gets the list of all lights and their current state","name":"Lights-get_lights","parameters":{"type":"object","required":[],"properties":{}},"strict":false}},{"type":"function","function":{"description":"Gets a light information from the specified id","name":"Lights-get_light","parameters":{"type":"object","required":["lightId"],"properties":{"lightId":{"type":"string"}}},"strict":false}},{"type":"function","function":{"description":"Changes the state of the light","name":"Lights-change_state","parameters":{"type":"object","required":["id","isOn"],"properties":{"id":{"type":"integer"},"isOn":{"type":"boolean"}}},"strict":false}},{"type":"function","function":{"description":"Changes the temperature of the light, the value of the temperature is between 1000 and 27000.\nTemperature\tSource\n1,000 K\tMost commercial electric heating elements\n1,700 K\tMatch flame, low-pressure sodium lamps (LPS/SOX)\n1,850 K\tCandle flame, sunset/sunrise\n2,400 K\tStandard incandescent lamps\n2,550 K\tSoft white incandescent lamps\n2,700 K\t\"Soft white\" compact fluorescent and LED lamps\n3,000 K\tWarm white compact fluorescent and LED lamps\n3,200 K\tStudio lamps, photofloods, etc.\n3,350 K\tStudio \"CP\" light\n5,000 K\tHorizon daylight, tubular fluorescent lamps or cool white/daylight compact fluorescent lamps (CFL)\n5,500–6,000 K\tVertical daylight, electronic flash\n6,200 K\tXenon short-arc lamp[10]\n6,500 K\tDaylight, overcast, daylight LED lamps\n6,500–9,500 K\tLCD or CRT screens\n15,000–27,000 K\tClear blue poleward sky","name":"Lights-change_temperature","parameters":{"type":"object","required":["id","temperature"],"properties":{"id":{"type":"integer"},"temperature":{"type":"integer"}}},"strict":false}}],"tool_choice":"auto"}. Got response 200 {
+        "id": "chatcmpl-D7SWRLF23yDrztDv081BjP7P6ZIa8",
+        "object": "chat.completion",
+        "created": 1770670307,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "All lights have been successfully deleted.",
+              "refusal": null,
+              "annotations": []
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 962,
+          "completion_tokens": 8,
+          "total_tokens": 970,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default",
+        "system_fingerprint": "fp_ad98c18a04"
+      }
+      . Elapsed 1288
+info: System.Net.Http.HttpClient.OpenAPI.LogicalHandler[101]
+      End processing HTTP request after 1292.2278ms - 200
+info: Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIChatCompletionService[0]
+      Prompt tokens: 962. Completion tokens: 8. Total tokens: 970.
+dbug: Microsoft.Extensions.Http.DefaultHttpClientFactory[100]
+      Starting HttpMessageHandler cleanup cycle with 1 items
+dbug: Microsoft.Extensions.Http.DefaultHttpClientFactory[101]
+      Ending HttpMessageHandler cleanup cycle after 0.0009ms - processed: 0 items - remaining: 1 items
+dbug: Microsoft.Extensions.Http.DefaultHttpClientFactory[100]
+      Starting HttpMessageHandler cleanup cycle with 1 items
+dbug: Microsoft.Extensions.Http.DefaultHttpClientFactory[101]
+      Ending HttpMessageHandler cleanup cycle after 0.0008ms - processed: 0 items - remaining: 1 items

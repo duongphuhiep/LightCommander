@@ -5,12 +5,25 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Scalar.AspNetCore;
 using StackExchange.Redis;
+using ToolsPack.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var modelId = builder.Configuration.GetValue<string>("ModelId") ?? throw new InvalidOperationException("Missing ModelId config");
 var apiKey = builder.Configuration.GetValue<string>("ApiKey") ?? throw new InvalidOperationException("Missing ApiKey config");
 var redisServer = builder.Configuration.GetValue<string>("RedisServer") ?? throw new InvalidOperationException("Missing RedisServer config");
+
+builder.Services.AddLogging(services => 
+{
+    services.AddConsole();
+    services.SetMinimumLevel(LogLevel.Trace); // Trace shows the actual prompts
+});
+builder.Services.AddTransient<CompactHttpLoggingMiddleware>();
+builder.Services.AddHttpClient("OpenAPI").AddHttpMessageHandler<CompactHttpLoggingMiddleware>();
+// Use a temporary service provider to grab the client while building
+var openApiHttpClient = builder.Services.BuildServiceProvider()
+    .GetRequiredService<IHttpClientFactory>()
+    .CreateClient("OpenAPI");
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -19,7 +32,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
     ConnectionMultiplexer.Connect(redisServer));
 builder.Services.AddSingleton<ILightRepository, RedisLightRepository>();
 builder.Services.AddKernel()
-    .AddOpenAIChatCompletion(modelId, apiKey)
+    .AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, httpClient: openApiHttpClient)
     .Plugins.AddFromType<LightsPlugin>("Lights");
 
 var app = builder.Build();
