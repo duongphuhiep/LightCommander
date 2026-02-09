@@ -1,72 +1,86 @@
-# AI Agent playground
+# AI Agent Playground
 
-This playground uses a LLM to execute business logic codes.
+An experimental playground using an LLM to interpret natural language requests and execute business logic.
 
-## Business requirement
+## Overview
 
-Our database stores collection of Lights 🔦. Each light has
-  
-* An Id
-* A name ("Porch", "Table Lamp", "Chandelier")
-* A state: On / Off
-* [A color temperature value attribute](https://en.wikipedia.org/wiki/Color_temperature) For eg: (1700K - Match flame, 1850K - Candle flame, 2550K - Soft white...)
+The system manages a collection of **Lights 🔦** stored in a database. Each light has:
 
-Users manipulate the business entity (Light) by sending request in natural language to the application. They should be able to:
+- **Id**
+- **Name** (e.g. _Porch_, _Table Lamp_, _Chandelier_)
+- **State**: On / Off
+- **Color temperature** (in Kelvin, e.g. 1700K flame, 1850K candle, 2550K soft white)
 
-* Add new lights to the database: Prompt example: `create a "table lamp" light and a "porch" light`.
-* Change the light state and/or color attribute: Prompt example: `Set porch to studio light temperature and turn it on`.
-* Remove light in the database: `remove the table lamp`
+Users interact with the system using natural language to manipulate these entities.
 
-## Project status
+### Supported actions
 
-Work in progress.
+- **Create lights**  
+    Example: `Create a "table lamp" light and a "porch" light`
 
-* Backend: operational ✅ - we can send request, get the response in natural language and observe changes in the database.
-* Frontend: not yet developed ❌. We observe the changes directly in the database for now.
+- **Update state and/or color temperature**  
+    Example: `Set porch to studio light temperature and turn it on`
 
-## How to play
+- **Remove lights**  
+    Example: `Remove the table lamp`
 
-### Step 1: Start a Redis database server
+## Project Status
+
+**Backend**: Functional ✅
+
+- Accepts natural language requests
+- Returns natural language responses
+- Persists changes to the database
+
+**Frontend**: Not implemented ❌
+
+- Changes are currently inspected directly in the database
+
+## Getting Started
+
+### Step 1: Start Redis
 
 ```sh
 docker compose up
 ```
 
-* It will start a Redis Server at `localhost:6379`
-* You can observe the data at `localhost:6300` (Redis Insight UI). For eg when you ask the system to create new light you will see new entity created or changed in the database via this UI.
+- Redis server: `localhost:6379`
+- Redis Insight UI: `localhost:6300`
 
-> Side note: An in memory database should be enough for the project. However I need tool to visualize my data (lights) when the Frontend is not yet ready. In the other hand, I wanted to experiment RedisJSON as a Document database (...and as a conclusion, I don't like it)
+Redis is used mainly for data visualization while the frontend is not yet available. This project also experiments with RedisJSON as a document store.
 
-### Step 2: Start the backend Csharp
+### Step 2: Start the Backend (C#)
 
-Requires: OpenApi's Api Key in `backend/api/appsettings.json`. Create one [here](https://platform.openai.com/settings/organization/api-keys)
+**Requirement:** OpenAI API key in `backend/api/appsettings.json`  
+
+Create one here: <https://platform.openai.com/settings/organization/api-keys>
 
 ```sh
-cd backend/api
+cd backend/api 
 dotnet run
 ```
 
-* It will start the API at `localhost:5140/scalar`
+- API available at: <http://localhost:5140/scalar>
 
-> Side note: The project uses Semantic Kernel, which can plug to [a wide range of LLM providers](https://learn.microsoft.com/en-us/semantic-kernel/concepts/ai-services/) (Azure OpenAI, Google, Anthropic, your local Ollama...). The current implementation uses OpenAI (simply because I've had already an API Key in the Pocket)
+The backend is built with **Semantic Kernel**, allowing easy switching between LLM providers (OpenAI, Azure OpenAI, Google, Anthropic, your local Ollama, etc.). The current setup uses OpenAI.
 
-### Step 3: Talk to the backend
+### Step 3: Interact with the API
 
-The frontend had not been developed yet. But you can use the scalar UI, or Postman to talk to the backend. Checkout examples in [api.http](backend/api/api.http)
+There is no frontend yet. Use **Scalar UI** or **Postman** instead. Example requests are available in `backend/api/api.http`.
 
-* Create a chat session
+- Create a chat session:
 
 ```http
 POST /chat/session
 ```
 
-* Send a message and get the response in natural language
+- Send a message:
 
 ```http
 POST /chat/{{ChatSession}}/message
 ```
 
-* In order to get the response in streaming use
+- Stream responses (SSE):
 
 ```http
 POST /chat/{{ChatSession}}/sse
