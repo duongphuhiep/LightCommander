@@ -1,26 +1,26 @@
 @BaseUrl = http://localhost:5140
-@ChatSession = 2e8326b0-e6e7-44c5-8207-b7371afae28e
+@ChatSession = 56b21b96-70ac-45f0-b4e7-98e318c51b6e
 
 ### Create a chat session
 POST {{BaseUrl}}/chat/session
 
 
 ### Create some lights
-POST {{BaseUrl}}/chat/{{ChatSession}}/message
+POST {{BaseUrl}}/chat/{{ChatSession}}/sse
 Accept: text/plain
 
 create a "table lamp" light and a "porch" light
 
 
 ### Set porch temperature
-POST {{BaseUrl}}/chat/{{ChatSession}}/message
+POST {{BaseUrl}}/chat/{{ChatSession}}/sse
 Accept: text/plain
 
 Set porch to studio light temperature and turn it on
 
 
 ### Remove all lights in the database
-POST {{BaseUrl}}/chat/{{ChatSession}}/message
+POST {{BaseUrl}}/chat/{{ChatSession}}/sse
 Accept: text/plain
 
 Delete all lights

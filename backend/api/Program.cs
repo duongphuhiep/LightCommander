@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using OllamaSharp;
+using OllamaSharp.Models.Chat;
 using Scalar.AspNetCore;
 using StackExchange.Redis;
 using ToolsPack.Logging;
@@ -19,13 +21,14 @@ builder.Services.AddLogging(services =>
     services.AddConsole();
     services.SetMinimumLevel(LogLevel.Trace); // Trace shows the actual prompts
 });
-builder.Services.AddTransient<CompactHttpLoggingMiddleware>();
-builder.Services.AddHttpClient("LLM").AddHttpMessageHandler<CompactHttpLoggingMiddleware>();
-// Use a temporary service provider to grab the client while building
-var llmHttpClient = builder.Services.BuildServiceProvider()
-    .GetRequiredService<IHttpClientFactory>()
-    .CreateClient("LLM");
-llmHttpClient.BaseAddress = new Uri(ollamaEndpoint);
+
+// builder.Services.AddTransient<CompactHttpLoggingMiddleware>();
+// builder.Services.AddHttpClient("LLM").AddHttpMessageHandler<CompactHttpLoggingMiddleware>();
+// // Use a temporary service provider to grab the client while building
+// var llmHttpClient = builder.Services.BuildServiceProvider()
+//     .GetRequiredService<IHttpClientFactory>()
+//     .CreateClient("LLM");
+// llmHttpClient.BaseAddress = new Uri(ollamaEndpoint);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -37,7 +40,7 @@ builder.Services.AddKernel()
     //.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, httpClient: llmHttpClient)
     .AddOllamaChatCompletion(
         modelId: modelId, 
-        httpClient: llmHttpClient
+        endpoint: new Uri(ollamaEndpoint)
     )
     .Plugins.AddFromType<LightsPlugin>("Lights");
 
@@ -51,11 +54,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 // Enable planning
 OpenAIPromptExecutionSettings openAiPromptExecutionSettings = new()
 {
-    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
+    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+    ExtensionData = new Dictionary<string, object>
+    {
+        { "think", "medium" }  // low | medium | high
+    }
 };
 
 Dictionary<Guid, ChatHistory> chatHistoryStorage = new();
@@ -132,7 +138,26 @@ app.MapPost("/chat/{session:guid}/sse",
 
             await foreach (var chunk in streamMessageContent)
             {
-                await context.Response.WriteAsync($"data: {chunk.Content}\n\n");
+                if  (chunk.InnerContent is ChatResponseStream innerContent)
+                {
+                    var thinking = innerContent.Message.Thinking;
+                    var content = innerContent.Message.Content;
+                    if (!string.IsNullOrEmpty(thinking))
+                    {
+                        await context.Response.WriteAsync($"[thinking] {thinking}\n\n");
+                        //chatHistory.AddMessage(AuthorRole.Assistant, thinking);
+                    }
+
+                    if (!string.IsNullOrEmpty(content))
+                    {
+                        await context.Response.WriteAsync($"[content] {content}\n\n");
+                        if (chunk.Role.HasValue)
+                        {
+                            chatHistory.AddMessage(chunk.Role.Value, content);
+                        }
+                    }
+                }
+                
                 await context.Response.Body.FlushAsync();
             }
         }
