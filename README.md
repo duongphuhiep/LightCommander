@@ -38,6 +38,15 @@ Users interact with the system using natural language to manipulate these entiti
 
 ## Getting Started
 
+### Requirement: LLM provider
+
+The backend is built with **Semantic Kernel**, allowing easy switching between LLM providers (OpenAI, Azure OpenAI, Google, Anthropic, your local Ollama, etc.). 
+The current setup uses ~~OpenAI~~ [Ollama](https://ollama.com/) running in your localhost (so that you can test for free with any OpenSource model).
+
+* ~~OpenAI's API key in `backend/api/appsettings.json`. Create one [here](https://platform.openai.com/settings/organization/api-keys>)~~
+* [Ollama](https://ollama.com/) running in `http://localhost:11434/`.
+    * list available models in your machine with `ollama list`, choose one to put in `backend/api/appsettings.json`
+
 ### Step 1: Start Redis
 
 ```sh
@@ -51,18 +60,12 @@ Redis is used mainly for data visualization while the frontend is not yet availa
 
 ### Step 2: Start the Backend (C#)
 
-**Requirement:** OpenAI's API key in `backend/api/appsettings.json`  
-
-Create one here: <https://platform.openai.com/settings/organization/api-keys>
-
 ```sh
 cd backend/api 
 dotnet run
 ```
 
 - API available at: <http://localhost:5140/scalar>
-
-The backend is built with **Semantic Kernel**, allowing easy switching between LLM providers (OpenAI, Azure OpenAI, Google, Anthropic, your local Ollama, etc.). The current setup uses OpenAI.
 
 ### Step 3: Interact with the API
 

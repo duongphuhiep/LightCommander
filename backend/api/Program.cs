@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var modelId = builder.Configuration.GetValue<string>("ModelId") ?? throw new InvalidOperationException("Missing ModelId config");
 var apiKey = builder.Configuration.GetValue<string>("ApiKey") ?? throw new InvalidOperationException("Missing ApiKey config");
+var ollamaEndpoint = builder.Configuration.GetValue<string>("OllamaEndpoint") ?? throw new InvalidOperationException("Missing OllamaEndpoint config");
 var redisServer = builder.Configuration.GetValue<string>("RedisServer") ?? throw new InvalidOperationException("Missing RedisServer config");
 
 builder.Services.AddLogging(services => 
@@ -19,11 +20,12 @@ builder.Services.AddLogging(services =>
     services.SetMinimumLevel(LogLevel.Trace); // Trace shows the actual prompts
 });
 builder.Services.AddTransient<CompactHttpLoggingMiddleware>();
-builder.Services.AddHttpClient("OpenAPI").AddHttpMessageHandler<CompactHttpLoggingMiddleware>();
+builder.Services.AddHttpClient("LLM").AddHttpMessageHandler<CompactHttpLoggingMiddleware>();
 // Use a temporary service provider to grab the client while building
-var openApiHttpClient = builder.Services.BuildServiceProvider()
+var llmHttpClient = builder.Services.BuildServiceProvider()
     .GetRequiredService<IHttpClientFactory>()
-    .CreateClient("OpenAPI");
+    .CreateClient("LLM");
+llmHttpClient.BaseAddress = new Uri(ollamaEndpoint);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -32,7 +34,11 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
     ConnectionMultiplexer.Connect(redisServer));
 builder.Services.AddSingleton<ILightRepository, RedisLightRepository>();
 builder.Services.AddKernel()
-    .AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, httpClient: openApiHttpClient)
+    //.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, httpClient: llmHttpClient)
+    .AddOllamaChatCompletion(
+        modelId: modelId, 
+        httpClient: llmHttpClient
+    )
     .Plugins.AddFromType<LightsPlugin>("Lights");
 
 var app = builder.Build();
