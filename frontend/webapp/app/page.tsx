@@ -20,16 +20,18 @@ export default function Home() {
             className={`chat ${
               msg.role === 'user' ? 'chat-end' : 'chat-start'
             }`}>
-            <div className='chat-header opacity-50 text-xs mb-1'>
-              {msg.role === 'user' ? 'You' : 'AI'}
-            </div>
-
+            
             {/* Thinking steps */}
             {msg.thinking && (
-              <div className='chat-bubble chat-bubble-warning opacity-70 text-sm italic mb-1'>
+              <div className='opacity-70 text-sm italic mb-1'>
                 💭 {msg.thinking}
               </div>
             )}
+
+            {/* Header */}  
+            <div className='chat-header opacity-50 text-xs mb-1'>
+              {msg.role === 'user' ? 'Me' : 'AI'}
+            </div>
 
             <div
               className={`chat-bubble ${
