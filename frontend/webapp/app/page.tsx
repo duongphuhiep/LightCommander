@@ -1,46 +1,25 @@
 export default function Home() {
-  const messages = [
-    { role: 'user', content: 'What is the capital of France?' },
-    {
-      role: 'assistant',
-      thinking:
-        'The user is asking about the capital of France. This is a simple geography question.',
-      content: 'The capital of France is **Paris**.',
-    },
-    { role: 'user', content: 'Tell me more about it.' },
-  ];
-
   return (
     <div className='flex flex-col h-screen bg-base-200'>
       {/* Chat Panel */}
       <div className='flex-1 overflow-y-auto p-4 space-y-4'>
-        {messages.map((msg, i) => (
-          <div
-            key={"k"+i}
-            className={`chat ${
-              msg.role === 'user' ? 'chat-end' : 'chat-start'
-            }`}>
-            
+        <div className='chat chat-end'>
+          <div className='chat-bubble chat-bubble-primary'>
+            What is the capital of France?
+          </div>
+        </div>
+
+        <div className='chat chat-start'>
+          <div className='chat-header opacity-50 text-xs mb-1'>
             {/* Thinking steps */}
-            {msg.thinking && (
-              <div className='opacity-70 text-sm italic mb-1'>
-                💭 {msg.thinking}
-              </div>
-            )}
-
-            {/* Header */}  
-            <div className='chat-header opacity-50 text-xs mb-1'>
-              {msg.role === 'user' ? 'Me' : 'AI'}
-            </div>
-
-            <div
-              className={`chat-bubble ${
-                msg.role === 'user' ? 'chat-bubble-primary' : ''
-              }`}>
-              {msg.content}
+            <div className='opacity-70 text-sm italic mb-1'>
+              💭 The user is asking about the capital of France. This is a
+              simple geography question.
             </div>
           </div>
-        ))}
+
+          <div className='chat-bubble'>The capital of France is **Paris**.</div>
+        </div>
 
         {/* AI streaming indicator */}
         <div className='chat chat-start'>
